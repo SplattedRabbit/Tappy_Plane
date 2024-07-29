@@ -1,0 +1,55 @@
+[gd_scene load_steps=10 format=3 uid="uid://3adhdvoh1ph"]
+
+[ext_resource type="Script" path="res://scenes/game/game.gd" id="1_c5110"]
+[ext_resource type="Texture2D" uid="uid://xdqki0hm24w6" path="res://assets/background/rocks_2.png" id="1_mvo7j"]
+[ext_resource type="PackedScene" uid="uid://b2ca4u2k7u74w" path="res://scenes/plane/plane.tscn" id="2_obhmh"]
+[ext_resource type="PackedScene" uid="uid://duiksyn0d8jdq" path="res://scenes/barrier/barrier.tscn" id="3_rbscf"]
+[ext_resource type="PackedScene" uid="uid://drwcc1ckjp7v8" path="res://scenes/pipes/pipes.tscn" id="4_7r0ki"]
+[ext_resource type="PackedScene" uid="uid://c0xrthh5hsgen" path="res://scenes/hud/hud.tscn" id="6_oo6wr"]
+[ext_resource type="PackedScene" uid="uid://7lerplym0gv4" path="res://scenes/gameover/game_over.tscn" id="7_3312w"]
+[ext_resource type="AudioStream" uid="uid://bcvdckfnmatav" path="res://assets/audio/bgm_menu.mp3" id="8_1yu5y"]
+[ext_resource type="PackedScene" uid="uid://cnc215tj7cj4p" path="res://scenes/scrollingbg/scrolling_bg.tscn" id="9_d7run"]
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_c5110")
+pipes_scene = ExtResource("4_7r0ki")
+
+[node name="Background" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(243, 412)
+texture = ExtResource("1_mvo7j")
+
+[node name="Plane" parent="." instance=ExtResource("2_obhmh")]
+position = Vector2(67, 441)
+
+[node name="Ceiling" parent="." instance=ExtResource("3_rbscf")]
+position = Vector2(-2, -5)
+
+[node name="Floor" parent="." instance=ExtResource("3_rbscf")]
+position = Vector2(-3, 857)
+
+[node name="PipesHolder" type="Node" parent="."]
+
+[node name="SpawnTimer" type="Timer" parent="."]
+wait_time = 1.6
+autostart = true
+
+[node name="SpawnU" type="Marker2D" parent="."]
+position = Vector2(530, 340)
+
+[node name="SpawnL" type="Marker2D" parent="."]
+position = Vector2(530, 540)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Hud" parent="CanvasLayer" instance=ExtResource("6_oo6wr")]
+
+[node name="GameOver" parent="CanvasLayer" instance=ExtResource("7_3312w")]
+
+[node name="MainMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_1yu5y")
+autoplay = true
+
+[node name="ScrollingBG" parent="." instance=ExtResource("9_d7run")]
+
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
