@@ -10,5 +10,7 @@ Technologies used:
 Features:  
 Besides the Course-Content I built a few aditional features:  
   → Game-Over Animation  
+  → Increasing difficulty with increasing scores (Still WIP)  
+  
+Next planned Feature:  
   → Persisting Highscore  
-  → Increasing difficulty with increasing scores  
