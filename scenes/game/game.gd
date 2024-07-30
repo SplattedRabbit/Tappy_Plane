@@ -14,10 +14,13 @@ extends Node2D
 func _ready():
 	SignalManager.on_plane_died.connect(_on_plane_died)
 	ScoreManager.set_score(0)
-
+	
 func spawnPipes() -> void:
 	var new_pipes = pipes_scene.instantiate()
-	new_pipes.position = Vector2(spawn_u.position.x, randf_range(spawn_u.position.y, spawn_l.position.y))
+	var position_U = spawn_u.position.y - DifficultyScaling.position_upper
+	var position_L = spawn_l.position.y + DifficultyScaling.position_lower 
+	
+	new_pipes.position = Vector2(spawn_u.position.x, randf_range(position_U, position_L))
 	pipes_holder.add_child(new_pipes)
 
 func stop_pipes() -> void:
